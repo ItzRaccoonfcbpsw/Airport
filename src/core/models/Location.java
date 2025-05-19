@@ -15,4 +15,11 @@ public class Location {
     private String airportCountry;
     private double airportLatitude;
     private double airportLongitude;
+
+    @Override
+    public String toString() {
+        return "Location{" + "airportId=" + airportId + ", airportName=" + airportName + ", airportCity=" + airportCity + ", airportCountry=" + airportCountry + '}';
+    }
+    
+    
 }

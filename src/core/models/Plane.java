@@ -17,4 +17,11 @@ public class Plane {
     private final int maxCapacity;
     private String airline;
     private ArrayList<Flight> flights;
+
+    @Override
+    public String toString() {
+        return "Plane{" + "id=" + id + ", brand=" + brand + ", model=" + model + ", airline=" + airline + '}';
+    }
+    
+    
 }

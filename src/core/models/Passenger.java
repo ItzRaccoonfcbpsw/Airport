@@ -20,4 +20,11 @@ public class Passenger {
     private long phone;
     private String country;
     private ArrayList<Flight> flights;
+
+    @Override
+    public String toString() {
+        return "Passenger{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", countryPhoneCode=" + countryPhoneCode + ", country=" + country + '}';
+    }
+    
+    
 }

@@ -20,6 +20,11 @@ public class Flight {
     private int minutesDurationArrival;
     private int hoursDurationScale;
     private int minutesDurationScale;
+
+    @Override
+    public String toString() {
+        return "Flight{" + "id=" + id + '}';
+    }
     
     
 }
