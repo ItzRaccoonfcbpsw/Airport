@@ -9,5 +9,10 @@ package core.models;
  * @author ISAIAS
  */
 public class Location {
-    
+    private final String airportId;
+    private String airportName;
+    private String airportCity;
+    private String airportCountry;
+    private double airportLatitude;
+    private double airportLongitude;
 }

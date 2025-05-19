@@ -9,5 +9,12 @@ package core.models;
  * @author ISAIAS
  */
 public class Passenger {
-    
+    private final long id;
+    private String firstname;
+    private String lastname;
+    private LocalDate birthDate;
+    private int countryPhoneCode;
+    private long phone;
+    private String country;
+    private ArrayList<Flight> flights;
 }
