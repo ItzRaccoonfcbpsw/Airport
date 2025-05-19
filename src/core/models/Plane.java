@@ -4,6 +4,8 @@
  */
 package core.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ISAIAS

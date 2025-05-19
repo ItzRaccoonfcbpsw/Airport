@@ -4,6 +4,9 @@
  */
 package core.models;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
  *
  * @author ISAIAS

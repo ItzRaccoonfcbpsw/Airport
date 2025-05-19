@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package core.models;
-
+import java.util.ArrayList;
 /**
  *
  * @author ISAIAS
@@ -20,4 +20,6 @@ public class Flight {
     private int minutesDurationArrival;
     private int hoursDurationScale;
     private int minutesDurationScale;
+    
+    
 }
