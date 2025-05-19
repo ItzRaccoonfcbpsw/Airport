@@ -9,5 +9,10 @@ package core.models;
  * @author ISAIAS
  */
 public class Plane {
-    
+    private final String id;
+    private String brand;
+    private String model;
+    private final int maxCapacity;
+    private String airline;
+    private ArrayList<Flight> flights;
 }
