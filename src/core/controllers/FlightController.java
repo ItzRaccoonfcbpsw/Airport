@@ -90,8 +90,40 @@ public class FlightController {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
     }
-}
 
-    public static Response delayflights(){
+    public static Response delayFlight(String flightId, String delayTime) {
+        try {
+            // se valida ID
+            if (flightId == null || flightId.isEmpty()) {
+                return new Response("Flight ID must not be empty", Status.BAD_REQUEST);
+            }
+            // se valida el formato HH:MM
+            if (delayTime == null || !delayTime.matches("^\\d{1,2}:\\d{2}$")) {
+                return new Response("Invalid time format. Use HH:MM", Status.BAD_REQUEST);
+            }
+            String[] parts = delayTime.split(":");
+            int hours, minutes;
+            try {
+                hours = Integer.parseInt(parts[0]);
+                minutes = Integer.parseInt(parts[1]);
 
+                if (hours < 0 || minutes < 0 || (hours == 0 && minutes == 0)) {
+                    return new Response("Delay time must be greater than 00:00", Status.BAD_REQUEST);
+                }
+            } catch (NumberFormatException e) {
+                return new Response("Delay time must be numeric in HH:MM format", Status.BAD_REQUEST);
+            }
+            StorageFlight storage = StorageFlight.getInstance();
+            Flight flight = storage.getFlight(flightId);
+            if (flight == null) {
+                return new Response("Flight not found", Status.NOT_FOUND);
+            }
+            // Aplicar el retraso
+            flight.delay(hours, minutes);
+            return new Response("Flight delayed successfully", Status.OK);
+
+        } catch (Exception e) {
+            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
+    }
+}

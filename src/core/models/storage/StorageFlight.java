@@ -5,7 +5,6 @@
 package core.models.storage;
 
 import core.models.Flight;
-import core.models.Location;
 import java.util.ArrayList;
 
 /**
