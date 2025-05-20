@@ -4,10 +4,19 @@
  */
 package main;
 
+import core.views.AirportFrame;
+
+
+
 /**
  *
  * @author RYZEN
  */
 public class Main {
+    public static void main(String[] args) {
+        AirportFrame ventana = new AirportFrame();
+        ventana.setVisible(true);
+    }
+
     
 }
