@@ -4,7 +4,7 @@
  */
 package core.models;
 
-import core.models.Flight;
+import core.controllers.utils.Validator;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -25,6 +25,12 @@ public class Passenger {
     private ArrayList<Flight> flights;
 
     public Passenger(long id, String firstname, String lastname, LocalDate birthDate, int countryPhoneCode, long phone, String country) {
+        if (!Validator.isValidPassengerId(id)) throw new IllegalArgumentException("Invalid ID");
+        if (!Validator.isValidName(firstname)) throw new IllegalArgumentException("Invalid firstname");
+        if (!Validator.isValidName(lastname)) throw new IllegalArgumentException("Invalid lastname");
+        if (!Validator.isValidDate(birthDate)) throw new IllegalArgumentException("Invalid birth date");
+        if (!Validator.isValidPhoneCode(countryPhoneCode)) throw new IllegalArgumentException("Invalid country code");
+        if (!Validator.isValidPhone(phone)) throw new IllegalArgumentException("Invalid phone");
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;

@@ -4,13 +4,17 @@
  */
 package core.models.storage;
 import core.models.Passenger;
+import core.observer.Observer;
+import core.observer.Subject;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author RYZEN
  */
-public class StoragePassenger {
+public class StoragePassenger implements Subject {
+    private final List<Observer> observers = new ArrayList<>();
       // Instancia Singleton
     private static StoragePassenger instance;
     
@@ -55,5 +59,22 @@ public class StoragePassenger {
             }
         }
         return false;
+    }
+    
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers) {
+            o.update();
+        }
     }
 }
