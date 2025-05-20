@@ -31,11 +31,7 @@ public class FlightController {
                 }
             } catch (NumberFormatException ex) {
                 return new Response("Id must be numeric", Status.BAD_REQUEST);
-            }
-            StorageFlight flightStorage = StorageFlight.getInstance();
-            if (flightStorage.getFlight(id) != null) {
-                return new Response("A Plane with that id already exists", Status.BAD_REQUEST);
-            }
+            }         
             StorageLocation locationStorage = StorageLocation.getInstance();
             Location departure = locationStorage.getLocation(departureLocation);
             Location arrival = locationStorage.getLocation(arrivalLocation);
@@ -83,7 +79,10 @@ public class FlightController {
             } else {
                 flight = new Flight(id, Planeplane, departure, arrival, DatedepartureLocation, hArr, mArr);
             }
-
+            StorageFlight flightStorage = StorageFlight.getInstance();
+            if (flightStorage.getFlight(id) != null) {
+                return new Response("A Plane with that id already exists", Status.BAD_REQUEST);
+            }
             flightStorage.addFlight(flight);
             return new Response("Flight created successfully", Status.CREATED);
         } catch (Exception ex) {

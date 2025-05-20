@@ -37,7 +37,9 @@ public class DataViewController {
     // Vuelos de un pasajero ordenados por fecha de salida
     public List<Flight> getFlightsOfPassengerOrderedByDeparture(long passengerId) {
         Passenger passenger = StoragePassenger.getInstance().getPassenger(passengerId);
-        if (passenger == null) return new ArrayList<>();
+        if (passenger == null) {
+            return new ArrayList<>();
+        }
         return passenger.getFlights().stream().sorted(Comparator.comparing(Flight::getDepartureDate)).collect(Collectors.toList());
     }
 }

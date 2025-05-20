@@ -109,7 +109,7 @@ public class AirportFrame extends javax.swing.JFrame {
         user = new javax.swing.JRadioButton();
         administrator = new javax.swing.JRadioButton();
         userSelect = new javax.swing.JComboBox<>();
-        PassaengerRegistrationPanel = new javax.swing.JPanel();
+        PassengerRegistrationPanel = new javax.swing.JPanel();
         CountryLabel = new javax.swing.JLabel();
         IDPassengerLabel = new javax.swing.JLabel();
         FirstNameLabel = new javax.swing.JLabel();
@@ -320,76 +320,76 @@ public class AirportFrame extends javax.swing.JFrame {
 
         Windows.addTab("Administration", AdministrationPanel);
 
-        PassaengerRegistrationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PassengerRegistrationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CountryLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         CountryLabel.setText("Country:");
-        PassaengerRegistrationPanel.add(CountryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
+        PassengerRegistrationPanel.add(CountryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
         IDPassengerLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         IDPassengerLabel.setText("ID:");
-        PassaengerRegistrationPanel.add(IDPassengerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+        PassengerRegistrationPanel.add(IDPassengerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
 
         FirstNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         FirstNameLabel.setText("First Name:");
-        PassaengerRegistrationPanel.add(FirstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        PassengerRegistrationPanel.add(FirstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         LastNameLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         LastNameLabel.setText("Last Name:");
-        PassaengerRegistrationPanel.add(LastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
+        PassengerRegistrationPanel.add(LastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         BirthdateLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         BirthdateLabel.setText("Birthdate:");
-        PassaengerRegistrationPanel.add(BirthdateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
+        PassengerRegistrationPanel.add(BirthdateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel6.setText("+");
-        PassaengerRegistrationPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 20, -1));
+        PassengerRegistrationPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 20, -1));
 
         CodePhoneTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(CodePhoneTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 50, -1));
+        PassengerRegistrationPanel.add(CodePhoneTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 50, -1));
 
         IDPassengerTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(IDPassengerTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 130, -1));
+        PassengerRegistrationPanel.add(IDPassengerTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 130, -1));
 
         YEARPassenger.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(YEARPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 90, -1));
+        PassengerRegistrationPanel.add(YEARPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 90, -1));
 
         CountryTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(CountryTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 130, -1));
+        PassengerRegistrationPanel.add(CountryTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 130, -1));
 
         PhoneTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(PhoneTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 130, -1));
+        PassengerRegistrationPanel.add(PhoneTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 130, -1));
 
         PhoneLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         PhoneLabel.setText("Phone:");
-        PassaengerRegistrationPanel.add(PhoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
+        PassengerRegistrationPanel.add(PhoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel8.setText("-");
-        PassaengerRegistrationPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 30, -1));
+        PassengerRegistrationPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 30, -1));
 
         LastNameTextFiel.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(LastNameTextFiel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 130, -1));
+        PassengerRegistrationPanel.add(LastNameTextFiel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 130, -1));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel9.setText("-");
-        PassaengerRegistrationPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 30, -1));
+        PassengerRegistrationPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 30, -1));
 
         MONTHPassenger.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         MONTHPassenger.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month" }));
-        PassaengerRegistrationPanel.add(MONTHPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
+        PassengerRegistrationPanel.add(MONTHPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
 
         FirstNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        PassaengerRegistrationPanel.add(FirstNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 130, -1));
+        PassengerRegistrationPanel.add(FirstNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 130, -1));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel10.setText("-");
-        PassaengerRegistrationPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 30, -1));
+        PassengerRegistrationPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 30, -1));
 
         DAYPassenger.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         DAYPassenger.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day" }));
-        PassaengerRegistrationPanel.add(DAYPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        PassengerRegistrationPanel.add(DAYPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
 
         RegisterPassengerButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         RegisterPassengerButton.setText("Register");
@@ -398,9 +398,9 @@ public class AirportFrame extends javax.swing.JFrame {
                 RegisterPassengerButtonActionPerformed(evt);
             }
         });
-        PassaengerRegistrationPanel.add(RegisterPassengerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 480, -1, -1));
+        PassengerRegistrationPanel.add(RegisterPassengerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 480, -1, -1));
 
-        Windows.addTab("Passenger registration", PassaengerRegistrationPanel);
+        Windows.addTab("Passenger registration", PassengerRegistrationPanel);
 
         AirplaneRegistationPanel.setLayout(null);
 
@@ -1779,7 +1779,7 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> MinuteDeparture;
     private javax.swing.JLabel ModelLabel;
     private javax.swing.JTextField ModelTextField;
-    private javax.swing.JPanel PassaengerRegistrationPanel;
+    private javax.swing.JPanel PassengerRegistrationPanel;
     private javax.swing.JLabel PhoneLabel;
     private javax.swing.JTextField PhoneTextField;
     private javax.swing.JTextField PhoneUpdateTextField;
