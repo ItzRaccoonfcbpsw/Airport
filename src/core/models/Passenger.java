@@ -4,14 +4,17 @@
  */
 package core.models;
 
+import core.models.Flight;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 /**
  *
- * @author ISAIAS
+ * @author edangulo
  */
 public class Passenger {
+    
     private final long id;
     private String firstname;
     private String lastname;
@@ -21,66 +24,91 @@ public class Passenger {
     private String country;
     private ArrayList<Flight> flights;
 
-    @Override
-    public String toString() {
-        return "Passenger{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", countryPhoneCode=" + countryPhoneCode + ", country=" + country + '}';
+    public Passenger(long id, String firstname, String lastname, LocalDate birthDate, int countryPhoneCode, long phone, String country) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.birthDate = birthDate;
+        this.countryPhoneCode = countryPhoneCode;
+        this.phone = phone;
+        this.country = country;
+        this.flights = new ArrayList<>();
+    }
+
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
+    }
+    
+    public long getId() {
+        return id;
     }
 
     public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getLastname() {
         return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public int getCountryPhoneCode() {
         return countryPhoneCode;
-    }
-
-    public void setCountryPhoneCode(int countryPhoneCode) {
-        this.countryPhoneCode = countryPhoneCode;
     }
 
     public long getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public ArrayList<Flight> getFlights() {
         return flights;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setCountryPhoneCode(int countryPhoneCode) {
+        this.countryPhoneCode = countryPhoneCode;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
     
+    public String getFullname() {
+        return firstname + " " + lastname;
+    }
+    
+    public String generateFullPhone() {
+        return "+" + countryPhoneCode + " " + phone;
+    }
+    
+    public int calculateAge() {
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
+    
+    public int getNumFlights() {
+        return flights.size();
+    }
     
 }

@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package core.models;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 /**
  *
- * @author ISAIAS
+ * @author edangulo
  */
 public class Flight {
+    
     private final String id;
     private ArrayList<Passenger> passengers;
     private Plane plane;
@@ -21,91 +24,95 @@ public class Flight {
     private int minutesDurationArrival;
     private int hoursDurationScale;
     private int minutesDurationScale;
+    
 
-    @Override
-    public String toString() {
-        return "Flight{" + "id=" + id + '}';
-    }
-
-    public ArrayList<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(ArrayList<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public void setPlane(Plane plane) {
+    public Flight(String id, Plane plane, Location departureLocation, Location arrivalLocation, LocalDateTime departureDate, int hoursDurationArrival, int minutesDurationArrival) {
+        this.id = id;
+        this.passengers = new ArrayList<>();
         this.plane = plane;
+        this.departureLocation = departureLocation;
+        this.arrivalLocation = arrivalLocation;
+        this.departureDate = departureDate;
+        this.hoursDurationArrival = hoursDurationArrival;
+        this.minutesDurationArrival = minutesDurationArrival;
+        
+        this.plane.addFlight(this);
+    }
+
+    public Flight(String id, Plane plane, Location departureLocation, Location scaleLocation, Location arrivalLocation, LocalDateTime departureDate, int hoursDurationArrival, int minutesDurationArrival, int hoursDurationScale, int minutesDurationScale) {
+        this.id = id;
+        this.passengers = new ArrayList<>();
+        this.plane = plane;
+        this.departureLocation = departureLocation;
+        this.scaleLocation = scaleLocation;
+        this.arrivalLocation = arrivalLocation;
+        this.departureDate = departureDate;
+        this.hoursDurationArrival = hoursDurationArrival;
+        this.minutesDurationArrival = minutesDurationArrival;
+        this.hoursDurationScale = hoursDurationScale;
+        this.minutesDurationScale = minutesDurationScale;
+        
+        this.plane.addFlight(this);
+    }
+    
+    public void addPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
+    }
+    
+    public String getId() {
+        return id;
     }
 
     public Location getDepartureLocation() {
         return departureLocation;
     }
 
-    public void setDepartureLocation(Location departureLocation) {
-        this.departureLocation = departureLocation;
-    }
-
     public Location getScaleLocation() {
         return scaleLocation;
-    }
-
-    public void setScaleLocation(Location scaleLocation) {
-        this.scaleLocation = scaleLocation;
     }
 
     public Location getArrivalLocation() {
         return arrivalLocation;
     }
 
-    public void setArrivalLocation(Location arrivalLocation) {
-        this.arrivalLocation = arrivalLocation;
-    }
-
     public LocalDateTime getDepartureDate() {
         return departureDate;
-    }
-
-    public void setDepartureDate(LocalDateTime departureDate) {
-        this.departureDate = departureDate;
     }
 
     public int getHoursDurationArrival() {
         return hoursDurationArrival;
     }
 
-    public void setHoursDurationArrival(int hoursDurationArrival) {
-        this.hoursDurationArrival = hoursDurationArrival;
-    }
-
     public int getMinutesDurationArrival() {
         return minutesDurationArrival;
-    }
-
-    public void setMinutesDurationArrival(int minutesDurationArrival) {
-        this.minutesDurationArrival = minutesDurationArrival;
     }
 
     public int getHoursDurationScale() {
         return hoursDurationScale;
     }
 
-    public void setHoursDurationScale(int hoursDurationScale) {
-        this.hoursDurationScale = hoursDurationScale;
-    }
-
     public int getMinutesDurationScale() {
         return minutesDurationScale;
     }
 
-    public void setMinutesDurationScale(int minutesDurationScale) {
-        this.minutesDurationScale = minutesDurationScale;
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setDepartureDate(LocalDateTime departureDate) {
+        this.departureDate = departureDate;
     }
     
+    public LocalDateTime calculateArrivalDate() {
+        return departureDate.plusHours(hoursDurationScale).plusHours(hoursDurationArrival).plusMinutes(minutesDurationScale).plusMinutes(minutesDurationArrival);
+    }
+    
+    public void delay(int hours, int minutes) {
+        this.departureDate = this.departureDate.plusHours(hours).plusMinutes(minutes);
+    }
+    
+    public int getNumPassengers() {
+        return passengers.size();
+    }
     
 }

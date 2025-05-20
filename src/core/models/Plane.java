@@ -4,13 +4,15 @@
  */
 package core.models;
 
+import core.models.Flight;
 import java.util.ArrayList;
 
 /**
  *
- * @author ISAIAS
+ * @author edangulo
  */
 public class Plane {
+    
     private final String id;
     private String brand;
     private String model;
@@ -18,42 +20,45 @@ public class Plane {
     private String airline;
     private ArrayList<Flight> flights;
 
-    @Override
-    public String toString() {
-        return "Plane{" + "id=" + id + ", brand=" + brand + ", model=" + model + ", airline=" + airline + '}';
+    public Plane(String id, String brand, String model, int maxCapacity, String airline) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.maxCapacity = maxCapacity;
+        this.airline = airline;
+        this.flights = new ArrayList<>();
+    }
+
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
+    }
+    
+    public String getId() {
+        return id;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 
     public String getAirline() {
         return airline;
     }
 
-    public void setAirline(String airline) {
-        this.airline = airline;
-    }
-
     public ArrayList<Flight> getFlights() {
         return flights;
     }
-
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
-    }
     
+    public int getNumFlights() {
+        return flights.size();
+    }
     
 }
