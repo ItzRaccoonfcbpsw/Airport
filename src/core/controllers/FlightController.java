@@ -17,11 +17,11 @@ import java.time.format.DateTimeParseException;
 
 /**
  *
- * @author ISAIAS
+ * @author RYZEN
  */
-public class CreateFlightController {
-
-    public static Response createflights(String id, String plane, String departureLocation, String scaleLocation, String arrivalLocation, String departureDate, String hoursDurationArrival, String minutesDurationArrival, String hoursDurationScale, String minutesDurationScale) {
+public class FlightController {
+    
+     public static Response createflights(String id, String plane, String departureLocation, String scaleLocation, String arrivalLocation, String departureDate, String hoursDurationArrival, String minutesDurationArrival, String hoursDurationScale, String minutesDurationScale) {
         try {
             StoragePlane airplaneStorage = StoragePlane.getInstance();
             Plane Planeplane = airplaneStorage.getPlane(plane);
@@ -90,4 +90,8 @@ public class CreateFlightController {
             return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
     }
+}
+
+public static Response delayflights(){
+
 }
