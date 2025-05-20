@@ -4,10 +4,50 @@
  */
 package core.controllers;
 
+import core.controllers.utils.Response;
+import core.controllers.utils.Status;
+import core.models.Flight;
+import core.models.Plane;
+import core.models.storage.StorageFlight;
+
 /**
  *
  * @author ISAIAS
  */
 public class CreateFlightController {
-    
+    // aun no esta listo
+      public static Response createflights(String id, String brand, String model, String maxCapacity, String airline) {
+        try { 
+            try {
+                if (!id.matches(("^[A-Z]{2}\\d{5}$")))
+                    return new Response("The id has an invalid format", Status.BAD_REQUEST);
+            } catch (NumberFormatException ex) {
+                return new Response("Id must be numeric", Status.BAD_REQUEST);
+            }
+            
+            if (brand.equals("")) {
+                return new Response("brand must be not empty", Status.BAD_REQUEST);
+            }
+            if (model.equals("")) {
+                return new Response("model must be not empty", Status.BAD_REQUEST);
+            }
+            if (maxCapacity.equals("")) {
+                return new Response("maxCapacity must be not empty", Status.BAD_REQUEST);
+            }
+            if (airline.equals("")) {
+                return new Response("airline must be not empty", Status.BAD_REQUEST);
+            }
+                   
+            StorageFlight storage = StorageFlight.getInstance();   
+            Flight fligth = storage.getFlight(id)
+            if (!storage.addPlane(new Plane(id, brand, model, 0, airline))) {
+                return new Response("A Plane with that id already exists", Status.BAD_REQUEST);
+            }
+            return new Response("Plane created successfully", Status.CREATED);
+        } catch (Exception ex) {
+            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
+
 }

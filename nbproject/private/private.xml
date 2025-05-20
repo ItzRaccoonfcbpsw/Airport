@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/models/Location.java</file>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/models/Plane.java</file>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/controllers/utils/Status.java</file>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/models/Passenger.java</file>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/models/Flight.java</file>
-            <file>file:/C:/Users/ISAIAS/Downloads/Parcial3/Airport/src/core/controllers/utils/Response.java</file>
+            <file>file:/G:/Justin%20Mercado/Documentos/NetBeans%20Proyects/Airport/src/core/controllers/CreateFlightController.java</file>
+            <file>file:/G:/Justin%20Mercado/Documentos/NetBeans%20Proyects/Airport/src/core/controllers/CreatePlaneController.java</file>
         </group>
     </open-files>
 </project-private>
