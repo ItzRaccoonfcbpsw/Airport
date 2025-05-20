@@ -23,6 +23,7 @@ public class Main {
         JSONloader.loadPassengers("json/passengers.json", storagepassenger);
         Passenger p1 = storagepassenger.getPassenger(314747359);
         System.out.println(""+p1.getFullname());
+        Passenger r = 
     }
 
     
