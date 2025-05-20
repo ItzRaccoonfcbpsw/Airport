@@ -20,8 +20,8 @@ import java.time.format.DateTimeParseException;
  * @author RYZEN
  */
 public class FlightController {
-    
-     public static Response createflights(String id, String plane, String departureLocation, String scaleLocation, String arrivalLocation, String departureDate, String hoursDurationArrival, String minutesDurationArrival, String hoursDurationScale, String minutesDurationScale) {
+
+    public static Response createflights(String id, String plane, String departureLocation, String scaleLocation, String arrivalLocation, String departureDate, String hoursDurationArrival, String minutesDurationArrival, String hoursDurationScale, String minutesDurationScale) {
         try {
             StoragePlane airplaneStorage = StoragePlane.getInstance();
             Plane Planeplane = airplaneStorage.getPlane(plane);
@@ -92,6 +92,6 @@ public class FlightController {
     }
 }
 
-public static Response delayflights(){
+    public static Response delayflights(){
 
-}
+        }
