@@ -21,7 +21,7 @@ public class StoragePassenger implements Subject {
     // Atributos del StoragePassenger
     private ArrayList<Passenger> passengers;
     
-    private StoragePassenger() {
+    public StoragePassenger() {
         this.passengers = new ArrayList<>();
     }
     
@@ -76,5 +76,10 @@ public class StoragePassenger implements Subject {
         for (Observer o : observers) {
             o.update();
         }
+    }
+
+    public void save(Passenger p) {
+        passengers.add(p);
+        notifyObservers();
     }
 }
