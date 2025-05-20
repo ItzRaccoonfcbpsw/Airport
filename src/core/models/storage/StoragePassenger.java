@@ -46,7 +46,8 @@ public class StoragePassenger {
         }
         return null;
     }
-    
+
+
     public boolean delPassenger(long id) {
         for (Passenger passenger : this.passengers) {
             if (passenger.getId() == id) {
@@ -56,4 +57,9 @@ public class StoragePassenger {
         }
         return false;
     }
+    
+    public ArrayList<Passenger> getPassengers() {
+        return passengers;
+    }
+    
 }

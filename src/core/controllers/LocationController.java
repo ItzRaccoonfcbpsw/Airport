@@ -1,5 +1,4 @@
 /*
-/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -14,8 +13,7 @@ import core.models.storage.StorageLocation;
  *
  * @author RYZEN
  */
-public class CreateLocationController {
-        
+public class LocationController {
     public static Response createLocations(String airportId, String airportName, String airportCity, String airportCountry, String airportLatitude, String airportLongitude) {
         try { 
             double DoubleairportLatitude,DoubleairportLongitude; 

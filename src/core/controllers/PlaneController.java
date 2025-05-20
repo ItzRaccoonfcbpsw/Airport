@@ -13,9 +13,9 @@ import core.models.storage.StoragePlane;
  *
  * @author RYZEN
  */
-public class CreatePlaneController {
+public class PlaneController {
     
-    public static Response createplanes(String id, String brand, String model, String maxCapacity, String airline) {
+       public static Response createplanes(String id, String brand, String model, String maxCapacity, String airline) {
         try { 
             try {
                 if (!id.matches(("^[A-Z]{2}\\d{5}$")))
@@ -47,3 +47,4 @@ public class CreatePlaneController {
         }
     }
 }
+

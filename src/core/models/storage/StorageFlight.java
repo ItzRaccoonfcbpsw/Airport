@@ -57,5 +57,11 @@ public class StorageFlight {
         }
         return false;
     }
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
+    
+    
 }
 
