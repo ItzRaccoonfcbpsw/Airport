@@ -14,7 +14,7 @@ import core.models.storage.StorageLocation;
  *
  * @author RYZEN
  */
-public class CreateLocationController {
+public class LocationController {
         
     public static Response createLocations(String airportId, String airportName, String airportCity, String airportCountry, String airportLatitude, String airportLongitude) {
         try { 

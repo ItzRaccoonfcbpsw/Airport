@@ -8,6 +8,6 @@ package core.controllers;
  *
  * @author ISAIAS
  */
-public class GetInformationController {
+public class PassengerController {
     
 }
