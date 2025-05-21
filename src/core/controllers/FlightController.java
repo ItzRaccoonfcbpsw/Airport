@@ -23,6 +23,16 @@ public class FlightController {
 
     public static Response createflights(String id, String plane, String departureLocation, String scaleLocation, String arrivalLocation, String departureDate, String hoursDurationArrival, String minutesDurationArrival, String hoursDurationScale, String minutesDurationScale) {
         try {
+            try {
+                if (id.equals("")) {
+                    return new Response("id must be not empty", Status.BAD_REQUEST);
+                }
+                if (!id.matches(("^[A-Z]{2}\\d{5}$"))) {
+                    return new Response("The id has an invalid format", Status.BAD_REQUEST);
+                }
+            } catch (NumberFormatException ex) {
+                return new Response("Id must be numeric", Status.BAD_REQUEST);
+            }
             StoragePlane airplaneStorage = StoragePlane.getInstance();
             Plane Planeplane = airplaneStorage.getPlane(plane);
             try {
