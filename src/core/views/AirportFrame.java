@@ -1855,7 +1855,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                 p.getId(),
                 p.getFullname(),
                 p.getBirthDate(),
-                
+                p.calculateAge(),
                 p.generateFullPhone(),
                 p.getCountry()
             });

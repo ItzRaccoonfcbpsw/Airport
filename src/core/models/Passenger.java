@@ -61,6 +61,7 @@ public class Passenger {
         return birthDate;
     }
 
+
     public int getCountryPhoneCode() {
         return countryPhoneCode;
     }
@@ -88,6 +89,7 @@ public class Passenger {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+
 
     public void setCountryPhoneCode(int countryPhoneCode) {
         this.countryPhoneCode = countryPhoneCode;
