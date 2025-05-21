@@ -14,16 +14,19 @@ import core.models.storage.StoragePlane;
  * @author RYZEN
  */
 public class PlaneController {
-    
     public static Response createplanes(String id, String brand, String model, String maxCapacity, String airline) {
-        try { 
+        try {
             try {
-                if (!id.matches(("^[A-Z]{2}\\d{5}$")))
+                if (id.equals("")) {
+                    return new Response("id must be not empty", Status.BAD_REQUEST);
+                }
+                if (!id.matches(("^[A-Z]{2}\\d{5}$"))) {
                     return new Response("The id has an invalid format", Status.BAD_REQUEST);
+                }
             } catch (NumberFormatException ex) {
                 return new Response("Id must be numeric", Status.BAD_REQUEST);
             }
-            
+
             if (brand.equals("")) {
                 return new Response("brand must be not empty", Status.BAD_REQUEST);
             }
@@ -36,8 +39,8 @@ public class PlaneController {
             if (airline.equals("")) {
                 return new Response("airline must be not empty", Status.BAD_REQUEST);
             }
-                   
-            StoragePlane storage = StoragePlane.getInstance();            
+
+            StoragePlane storage = StoragePlane.getInstance();
             if (!storage.addPlane(new Plane(id, brand, model, 0, airline))) {
                 return new Response("A Plane with that id already exists", Status.BAD_REQUEST);
             }
