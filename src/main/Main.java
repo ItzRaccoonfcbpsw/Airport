@@ -17,13 +17,15 @@ import core.views.AirportFrame;
  */
 public class Main {
     public static void main(String[] args) {
-        /*AirportFrame ventana = new AirportFrame();
-        ventana.setVisible(true);*/
-        StoragePassenger storagepassenger = new StoragePassenger();
+        
+        AirportFrame ventana = new AirportFrame();
+        ventana.setVisible(true);
+        
+        /*StoragePassenger storagepassenger = new StoragePassenger();
         JSONloader.loadPassengers("json/passengers.json", storagepassenger);
         Passenger p1 = storagepassenger.getPassenger(314747359);
-        System.out.println(""+p1.getFullname());
-        Passenger r = 
+        System.out.println(""+p1.getFullname());*/
+       
     }
 
     

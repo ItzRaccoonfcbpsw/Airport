@@ -9,6 +9,10 @@ import core.models.Location;
 import core.models.Passenger;
 import core.models.Plane;
 import com.formdev.flatlaf.FlatDarkLaf;
+import core.controllers.PassengerController;
+import core.models.storage.JSONloader;
+import core.models.storage.StoragePassenger;
+import core.observer.Observer;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author edangulo
  */
-public class AirportFrame extends javax.swing.JFrame {
+public class AirportFrame extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form AirportFrame
@@ -47,6 +51,10 @@ public class AirportFrame extends javax.swing.JFrame {
         this.generateHours();
         this.generateMinutes();
         this.blockPanels();
+        this.storagepassenger = new StoragePassenger();
+        this.passengercontroller = new PassengerController(storagepassenger);
+        storagepassenger.addObserver(this);
+        JSONloader.loadPassengers("json/passengers.json", storagepassenger);
     }
 
     private void blockPanels() {
@@ -1412,7 +1420,7 @@ public class AirportFrame extends javax.swing.JFrame {
 
         }
         for (int i = 1; i < jTabbedPane1.getTabCount(); i++) {
-                jTabbedPane1.setEnabledAt(i, true);
+            jTabbedPane1.setEnabledAt(i, true);
         }
         jTabbedPane1.setEnabledAt(5, false);
         jTabbedPane1.setEnabledAt(6, false);
@@ -1662,11 +1670,10 @@ public class AirportFrame extends javax.swing.JFrame {
     private void userSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSelectActionPerformed
         try {
             String id = userSelect.getSelectedItem().toString();
-            if (! id.equals(userSelect.getItemAt(0))) {
+            if (!id.equals(userSelect.getItemAt(0))) {
                 jTextField20.setText(id);
                 jTextField28.setText(id);
-            }
-            else{
+            } else {
                 jTextField20.setText("");
                 jTextField28.setText("");
             }
@@ -1834,4 +1841,24 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton user;
     private javax.swing.JComboBox<String> userSelect;
     // End of variables declaration//GEN-END:variables
+
+    private StoragePassenger storagepassenger;
+    private PassengerController passengercontroller;
+
+    @Override
+    public void update() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear table
+
+        for (Passenger p : storagepassenger.getAllPassenger()) {
+            model.addRow(new Object[]{
+                p.getId(),
+                p.getFullname(),
+                p.getBirthDate(),
+                
+                p.generateFullPhone(),
+                p.getCountry()
+            });
+        }
+    }
 }

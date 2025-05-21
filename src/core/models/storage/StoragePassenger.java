@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package core.models.storage;
+
 import core.models.Passenger;
 import core.observer.Observer;
 import core.observer.Subject;
@@ -14,24 +15,25 @@ import java.util.List;
  * @author RYZEN
  */
 public class StoragePassenger implements Subject {
+
     private final List<Observer> observers = new ArrayList<>();
-      // Instancia Singleton
+    // Instancia Singleton
     private static StoragePassenger instance;
-    
+
     // Atributos del StoragePassenger
     private ArrayList<Passenger> passengers;
-    
+
     public StoragePassenger() {
         this.passengers = new ArrayList<>();
     }
-    
+
     public static StoragePassenger getInstance() {
         if (instance == null) {
             instance = new StoragePassenger();
         }
         return instance;
     }
-    
+
     public boolean addPassenger(Passenger passenger) {
         for (Passenger p : this.passengers) {
             if (p.getId() == passenger.getId()) {
@@ -41,7 +43,7 @@ public class StoragePassenger implements Subject {
         this.passengers.add(passenger);
         return true;
     }
-    
+
     public Passenger getPassenger(long id) {
         for (Passenger passenger : this.passengers) {
             if (passenger.getId() == id) {
@@ -50,7 +52,7 @@ public class StoragePassenger implements Subject {
         }
         return null;
     }
-    
+
     public boolean delPassenger(long id) {
         for (Passenger passenger : this.passengers) {
             if (passenger.getId() == id) {
@@ -61,6 +63,10 @@ public class StoragePassenger implements Subject {
         return false;
     }
     
+    public ArrayList<Passenger> getAllPassenger(){
+        return this.passengers;
+    }
+
     @Override
     public void addObserver(Observer o) {
         observers.add(o);
