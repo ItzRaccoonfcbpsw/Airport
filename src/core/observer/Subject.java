@@ -9,7 +9,7 @@ package core.observer;
  * @author ISAIAS
  */
 public interface Subject {
-    void addObserver(Observer observer);
-    void removeObserver(Observer observer);
+    void addObserver(Observer o);
+    void removeObserver(Observer o);
     void notifyObservers();
 }

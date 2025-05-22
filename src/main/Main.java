@@ -26,6 +26,8 @@ public class Main {
         Passenger p1 = storagepassenger.getPassenger(314747359);
         System.out.println(""+p1.getFullname());*/
        
+        
+        /*to do: ponerle las validaciones a los modelos como la del passenger, storage como en el passenger, en los storage no colocar observer por ahora, getAll de storage debe tener el ordenamiento, agregar los demas metodos del passenger, falta hacer el Json a los demas en el loader, y conectarlo a la vista, inicializarlas en el constructor, 
     }
 
     

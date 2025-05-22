@@ -1460,7 +1460,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         String phone = PhoneTextField.getText();
         String country = CountryTextField.getText();
 
-        Response response = RegisterPassengerController.registerPassenger(id, firstname, lastname, year, month, day, phoneCode, phone, country);
+        Response response = PassengerController.registerPassenger(id, firstname, lastname, year, month, day, phoneCode, phone, country);
         
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);

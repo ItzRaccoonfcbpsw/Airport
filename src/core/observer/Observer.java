@@ -9,5 +9,5 @@ package core.observer;
  * @author ISAIAS
  */
 public interface Observer {
-    void update();
+    void update(Object source);
 }
