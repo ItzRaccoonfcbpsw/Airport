@@ -1,34 +1,63 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
-
-import core.models.Passenger;
-import core.models.storage.JSONloader;
-import core.models.storage.StoragePassenger;
+        
+import core.controllers.FlightController;
+import core.controllers.LocationController;
+import core.controllers.PassengerController;
+import core.controllers.PlaneController;
+import core.repositories.FlightRepository;
+import core.repositories.IFlightRepository;
+import core.repositories.ILocationRepository;
+import core.repositories.LocationRepository;
+import core.repositories.IPassengerRepository;
+import core.repositories.IPlaneRepository;
+import core.repositories.NuevoFlightRepository;
+import core.repositories.PassengerRepository;
+import core.repositories.PlaneRepository;
 import core.views.AirportFrame;
+import core.data.JSONLoader;
 
-
-
-/**
- *
- * @author RYZEN
- */
 public class Main {
     public static void main(String[] args) {
         
-        AirportFrame ventana = new AirportFrame();
-        ventana.setVisible(true);
+        ILocationRepository locationRepo = new LocationRepository();
+        LocationController locationController = new LocationController(locationRepo);
         
-        /*StoragePassenger storagepassenger = new StoragePassenger();
-        JSONloader.loadPassengers("json/passengers.json", storagepassenger);
-        Passenger p1 = storagepassenger.getPassenger(314747359);
-        System.out.println(""+p1.getFullname());*/
-       
+        IPlaneRepository planeRepo = new PlaneRepository();
+        PlaneController planeController = new PlaneController(planeRepo);
         
-        /*to do: ponerle las validaciones a los modelos como la del passenger, storage como en el passenger, en los storage no colocar observer por ahora, getAll de storage debe tener el ordenamiento, agregar los demas metodos del passenger, falta hacer el Json a los demas en el loader, y conectarlo a la vista, inicializarlas en el constructor, 
-    }
+        IPassengerRepository passengerRepo = new PassengerRepository();
+        PassengerController passengerController = new PassengerController(passengerRepo);
 
-    
+        IFlightRepository flightRepo = new FlightRepository();
+        FlightController flightController = new FlightController(flightRepo);
+        
+        
+        IFlightRepository nuevoFlightRepo = new NuevoFlightRepository();
+        
+        flightController = new FlightController(nuevoFlightRepo);
+        
+         AirportFrame ventana = new AirportFrame(locationController, planeController, passengerController, flightController);
+         
+         ((LocationRepository)locationRepo).addObserver(ventana);
+         ((PlaneRepository)planeRepo).addObserver(ventana);
+         ((PassengerRepository)passengerRepo).addObserver(ventana);
+         ((FlightRepository)flightRepo).addObserver(ventana);
+        
+         
+        JSONLoader.loadLocations("json/locations.json", locationRepo);
+        JSONLoader.loadPlanes("json/planes.json", planeRepo);
+        JSONLoader.loadPassengers("json/passengers.json", passengerRepo);
+        JSONLoader.loadFlights("json/flights.json", flightRepo, planeRepo, locationRepo);
+        
+        
+        System.out.println("Location system initialized!");
+        System.out.println("Plane system initialized!");
+        System.out.println(locationRepo.findById("JFK").getAirportName());
+        System.out.println(planeRepo.findById("AB12345").getBrand());
+        
+        
+        ventana.setVisible(true);
+
+
+    }
 }

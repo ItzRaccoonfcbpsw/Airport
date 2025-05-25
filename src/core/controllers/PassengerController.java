@@ -4,12 +4,12 @@
  */
 package core.controllers;
 
-import core.controllers.utils.Response;
-import core.controllers.utils.Status;
+import core.utils.Response;
+import core.utils.Status;
 import core.models.Passenger;
-import core.models.storage.StoragePassenger;
+import core.repositories.IPassengerRepository;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  *
@@ -17,22 +17,38 @@ import java.time.format.DateTimeParseException;
  */
 public class PassengerController {
 
-    public PassengerController(StoragePassenger storage) {
+    private final IPassengerRepository repository;
+    
+    
+    public PassengerController(IPassengerRepository repository) {
+        this.repository = repository;
     }
     
     
-    public static Response registerPassenger(long id, String firstname, String lastname, LocalDate birthDate, int countryPhoneCode, long phone, String country) {
+    public Response registerPassenger(long id, String firstname, String lastname, LocalDate birthDate, int countryPhoneCode, long phone, String country) {
+        if (repository.existsById(id)) {
+            return new Response("Passenger already exists", Status.BAD_REQUEST);
+        }
+        
         try { 
          Passenger p = new Passenger(id, firstname, lastname, birthDate, countryPhoneCode, phone, country);
-            StoragePassenger storage = StoragePassenger.getInstance();            
-            if (!storage.addPassenger(p)) {
-                return new Response("A Passenger with that id already exists", Status.BAD_REQUEST);
-            }
-            storage.save(p);
-            return new Response("Passenger created successfully", Status.CREATED);
-        } catch (Exception ex) {
-            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
+                       
+            repository.save(p);
+            return new Response("Passenger created successfully", Status.CREATED, p);
+        } catch (IllegalArgumentException e) {
+            return new Response(e.getMessage(), Status.BAD_REQUEST);
+        } catch (Exception e) {
+            return new Response("Internal error: " + e.getMessage(), Status.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    public Response getAllPassengers() {
+    try {
+        List<Passenger> passengers = repository.findAllSorted();
+        return new Response("Passengers retrieved successfully", Status.OK, passengers);
+    } catch (Exception e) {
+        return new Response("Error retrieving passengers: " + e.getMessage(), Status.INTERNAL_SERVER_ERROR);
+    }
     }
 
 }

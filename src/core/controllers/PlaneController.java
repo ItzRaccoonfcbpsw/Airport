@@ -4,49 +4,43 @@
  */
 package core.controllers;
 
-import core.controllers.utils.Response;
-import core.controllers.utils.Status;
+import core.utils.Response;
+import core.utils.Status;
 import core.models.Plane;
-import core.models.storage.StoragePlane;
+import core.repositories.IPlaneRepository;
+import java.util.List;
 
-/**
- *
- * @author RYZEN
- */
 public class PlaneController {
-    public static Response createplanes(String id, String brand, String model, String maxCapacity, String airline) {
+    private final IPlaneRepository repository;
+
+    public PlaneController(IPlaneRepository repository) {
+        this.repository = repository;
+    }
+
+    public Response registerPlane(String id, String brand, String model, int maxCapacity, String airline) {
+        if (repository.existsById(id)) {
+            return new Response("Plane already exists", Status.BAD_REQUEST);
+        }
+
+        if (maxCapacity <= 0) {
+            return new Response("Capacity must be greater than 0", Status.BAD_REQUEST);
+        }
+
         try {
-            try {
-                if (id.equals("")) {
-                    return new Response("id must be not empty", Status.BAD_REQUEST);
-                }
-                if (!id.matches(("^[A-Z]{2}\\d{5}$"))) {
-                    return new Response("The id has an invalid format", Status.BAD_REQUEST);
-                }
-            } catch (NumberFormatException ex) {
-                return new Response("Id must be numeric", Status.BAD_REQUEST);
-            }
-
-            if (brand.equals("")) {
-                return new Response("brand must be not empty", Status.BAD_REQUEST);
-            }
-            if (model.equals("")) {
-                return new Response("model must be not empty", Status.BAD_REQUEST);
-            }
-            if (maxCapacity.equals("")) {
-                return new Response("maxCapacity must be not empty", Status.BAD_REQUEST);
-            }
-            if (airline.equals("")) {
-                return new Response("airline must be not empty", Status.BAD_REQUEST);
-            }
-
-            StoragePlane storage = StoragePlane.getInstance();
-            if (!storage.addPlane(new Plane(id, brand, model, 0, airline))) {
-                return new Response("A Plane with that id already exists", Status.BAD_REQUEST);
-            }
-            return new Response("Plane created successfully", Status.CREATED);
-        } catch (Exception ex) {
-            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
+            Plane plane = new Plane(id, brand, model, maxCapacity, airline);
+            repository.save(plane);
+            return new Response("Plane registered successfully", Status.CREATED, plane);
+        } catch (Exception e) {
+            return new Response("Internal error: " + e.getMessage(), Status.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    public Response getAllPlanes() {
+    try {
+        List<Plane> planes = repository.findAllSorted();
+        return new Response("Planes retrieved successfully", Status.OK, planes);
+    } catch (Exception e) {
+        return new Response("Error retrieving planes: " + e.getMessage(), Status.INTERNAL_SERVER_ERROR);
+    }
+}
 }

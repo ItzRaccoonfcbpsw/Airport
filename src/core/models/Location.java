@@ -1,27 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package core.models;
 
-/**
- *
- * @author edangulo
- */
 public class Location {
-    
     private final String airportId;
-    private String airportName;
-    private String airportCity;
-    private String airportCountry;
-    private double airportLatitude;
-    private double airportLongitude;
+    private final String airportName;
+    private final String airportCountry;
+    private final String airportCity;
+    private final double airportLatitude;
+    private final double airportLongitude;
 
-    public Location(String airportId, String airportName, String airportCity, String airportCountry, double airportLatitude, double airportLongitude) {
+    public Location(String airportId, 
+                    String airportName, 
+                    String airportCountry, 
+                    String airportCity, 
+                    double airportLatitude, 
+                    double airportLongitude) {
+        if (airportId == null || airportId.isEmpty()) throw new IllegalArgumentException("Invalid ID");
+        if (airportName == null || airportName.isEmpty()) throw new IllegalArgumentException("Invalid name");
+        if (airportCountry == null || airportCountry.isEmpty()) throw new IllegalArgumentException("Invalid country");
+        if (airportCity == null || airportCity.isEmpty()) throw new IllegalArgumentException("Invalid country");
+        if (airportLatitude < -90 || airportLatitude > 90) throw new IllegalArgumentException("Invalid latitude");
+        if (airportLongitude < -180 || airportLongitude > 180) throw new IllegalArgumentException("Invalid longitude");
+
         this.airportId = airportId;
         this.airportName = airportName;
-        this.airportCity = airportCity;
         this.airportCountry = airportCountry;
+        this.airportCity = airportCity;
         this.airportLatitude = airportLatitude;
         this.airportLongitude = airportLongitude;
     }
@@ -34,20 +37,21 @@ public class Location {
         return airportName;
     }
 
-    public String getAirportCity() {
-        return airportCity;
-    }
-
     public String getAirportCountry() {
         return airportCountry;
     }
 
-    public double getAirportLatitude() {
+    public String getAirportCity() {
+        return airportCity;
+    }
+
+    public double getLatitude() {
         return airportLatitude;
     }
 
-    public double getAirportLongitude() {
+    public double getLongitude() {
         return airportLongitude;
     }
+    
     
 }

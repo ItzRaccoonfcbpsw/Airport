@@ -20,6 +20,7 @@ public class Flight {
     private Location scaleLocation;
     private Location arrivalLocation;
     private LocalDateTime departureDate;
+    private LocalDateTime arrivalDate;
     private int hoursDurationArrival;
     private int minutesDurationArrival;
     private int hoursDurationScale;
