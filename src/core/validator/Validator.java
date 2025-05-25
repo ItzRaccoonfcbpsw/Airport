@@ -30,5 +30,25 @@ public class Validator {
         return phone >= 0 && String.valueOf(phone).length()<=11;
     }
 
+    public static boolean isValidPlaneIdFormat(String planeId) {
+        return planeId != null && planeId.matches("^[A-Z]{2}[0-9]{5}$");
+    }
+    
+    public static boolean isValidCoordinates(double latitude, double longitude) {
+        
+        if (latitude < -90 || latitude > 90) return false;
+        if (longitude < -180 || longitude > 180) return false;
+        
+        return hasMaxFourDecimalPlaces(latitude) && hasMaxFourDecimalPlaces(longitude);
+    }
+ 
+    private static boolean hasMaxFourDecimalPlaces(double value) {
+        String[] parts = String.valueOf(value).split("\\.");
+        return parts.length == 1 || parts[1].length() <= 4;
+    }
+    
+    public static boolean isValidAirportIdFormat(String id) {
+        return id != null && id.matches("^[A-Z]{3}$");
+    }
 
 }

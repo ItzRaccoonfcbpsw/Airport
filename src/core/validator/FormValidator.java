@@ -55,7 +55,7 @@ public class FormValidator {
         return errors;
     }
 
-    public static List<String> validatePlane(String id, String model, String capacityStr) {
+    public static List<String> validatePlane(String id, String brand, String model, String maxCapacity, String airline) {
         List<String> errors = new ArrayList<>();
 
         if (id == null || id.trim().isEmpty()) {
@@ -65,9 +65,17 @@ public class FormValidator {
         if (model == null || model.trim().isEmpty()) {
             errors.add("Model is required.");
         }
+        
+        if (brand == null || brand.trim().isEmpty()) {
+            errors.add("Brand is required.");
+        }
+        
+        if (airline == null || airline.trim().isEmpty()) {
+            errors.add("Airline is required.");
+        }
 
         try {
-            int capacity = Integer.parseInt(capacityStr);
+            int capacity = Integer.parseInt(maxCapacity);
             if (capacity <= 0) errors.add("Capacity must be greater than 0.");
         } catch (Exception e) {
             errors.add("Capacity must be a valid number.");
@@ -76,26 +84,14 @@ public class FormValidator {
         return errors;
     }
 
-    public static List<String> validateLocation(String id, String name, String country, String latStr, String lonStr) {
+    public static List<String> validateLocation(String id, String name, String country, String latitudeStr, String longitudeStr) {
         List<String> errors = new ArrayList<>();
 
         if (id == null || id.isEmpty()) errors.add("Location ID is required.");
         if (name == null || name.isEmpty()) errors.add("Location name is required.");
         if (country == null || country.length() < 2) errors.add("Invalid country.");
-
-        try {
-            double lat = Double.parseDouble(latStr);
-            if (lat < -90 || lat > 90) errors.add("Latitude must be between -90 and 90.");
-        } catch (Exception e) {
-            errors.add("Latitude must be a valid number.");
-        }
-
-        try {
-            double lon = Double.parseDouble(lonStr);
-            if (lon < -180 || lon > 180) errors.add("Longitude must be between -180 and 180.");
-        } catch (Exception e) {
-            errors.add("Longitude must be a valid number.");
-        }
+        if (latitudeStr == null) errors.add("Invalid latitude.");
+        if (longitudeStr == null) errors.add("Invalid longitude.");
 
         return errors;
     }

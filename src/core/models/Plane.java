@@ -4,7 +4,7 @@
  */
 package core.models;
 
-import core.models.Flight;
+import core.validator.Validator;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +21,7 @@ public class Plane {
     private ArrayList<Flight> flights;
 
     public Plane(String id, String brand, String model, int maxCapacity, String airline) {
+        if (!Validator.isValidPlaneIdFormat(id)) throw new IllegalArgumentException("Invalid ID");
         this.id = id;
         this.brand = brand;
         this.model = model;

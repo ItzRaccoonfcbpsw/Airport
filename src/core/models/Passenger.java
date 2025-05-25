@@ -119,4 +119,9 @@ public class Passenger {
         return flights.size();
     }
     
+    @Override
+    public String toString() {
+        return this.getFullname();
+    }
+    
 }

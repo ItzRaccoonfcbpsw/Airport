@@ -155,7 +155,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jLabel14 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        jButtonPlane = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
@@ -169,7 +169,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
+        jButtonLocation = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jTextField19 = new javax.swing.JTextField();
@@ -463,15 +463,15 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jPanel3.add(jLabel15);
         jLabel15.setBounds(53, 336, 70, 25);
 
-        jButton9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton9.setText("Create");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPlane.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jButtonPlane.setText("Create");
+        jButtonPlane.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButtonPlaneActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9);
-        jButton9.setBounds(490, 480, 120, 40);
+        jPanel3.add(jButtonPlane);
+        jButtonPlane.setBounds(490, 480, 120, 40);
 
         jTabbedPane1.addTab("Airplane registration", jPanel3);
 
@@ -505,11 +505,11 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
         jTextField18.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
 
-        jButton10.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton10.setText("Create");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLocation.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jButtonLocation.setText("Create");
+        jButtonLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButtonLocationActionPerformed(evt);
             }
         });
 
@@ -538,7 +538,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                             .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(515, 515, 515)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(515, 515, 515))
         );
         jPanel13Layout.setVerticalGroup(
@@ -571,7 +571,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel21)
                     .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
 
@@ -1462,58 +1462,102 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         String country = jTextField4.getText();
 
         List<String> errors = FormValidator.validatePassenger(idStr, firstname, lastname,
-                                                          country, phoneCodeStr, phoneStr,
-                                                          yearStr, monthStr, dayStr);
-        
+                country, phoneCodeStr, phoneStr,
+                yearStr, monthStr, dayStr);
+
         if (!errors.isEmpty()) {
-           JOptionPane.showMessageDialog(this, String.join("\n", errors), "Validation", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, String.join("\n", errors), "Validation", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         long id = Long.parseLong(idStr);
         int phoneCode = Integer.parseInt(phoneCodeStr);
         long phone = Long.parseLong(phoneStr);
         int year = Integer.parseInt(yearStr);
         int month = Integer.parseInt(monthStr);
         int day = Integer.parseInt(dayStr);
-        
+
         LocalDate birthDate = LocalDate.of(year, month, day);
-        
-        
+
         Response response = this.passengerController.registerPassenger(id, firstname, lastname, birthDate, phoneCode, phone, country);
-        
+
         JOptionPane.showMessageDialog(this, response.getMessage(), "Create Passenger", JOptionPane.INFORMATION_MESSAGE);
+
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        
+        
         
     }//GEN-LAST:event_jButtonRegisterPassengerActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButtonPlaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaneActionPerformed
         // TODO add your handling code here:
-        String id = jTextField8.getText();
-        String brand = jTextField9.getText();
-        String model = jTextField10.getText();
-        int maxCapacity = Integer.parseInt(jTextField11.getText());
-        String airline = jTextField12.getText();
+        String idStr = jTextField8.getText();
+        String brandStr = jTextField9.getText();
+        String modelStr = jTextField10.getText();
+        String maxCapacityStr = jTextField11.getText();
+        String airlineStr = jTextField12.getText();
 
-        this.planes.add(new Plane(id, brand, model, maxCapacity, airline));
+        List<String> errors = FormValidator.validatePlane(idStr, brandStr, modelStr, maxCapacityStr, airlineStr);
 
-        this.jComboBox1.addItem(id);
-    }//GEN-LAST:event_jButton9ActionPerformed
+        if (!errors.isEmpty()) {
+            JOptionPane.showMessageDialog(this, String.join("\n", errors), "Validation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        int capacity = Integer.parseInt(maxCapacityStr);
+        Response response = this.planeController.registerPlane(idStr, brandStr, modelStr, capacity, airlineStr);
+
+        JOptionPane.showMessageDialog(this, response.getMessage(), "Create Plane", JOptionPane.INFORMATION_MESSAGE);
+
+        this.jComboBox1.addItem(idStr);
+        
+        jTextField8.setText("");
+        jTextField9.setText("");
+        jTextField10.setText("");
+        jTextField11.setText("");
+        jTextField12.setText("");
+    }//GEN-LAST:event_jButtonPlaneActionPerformed
+
+    private void jButtonLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLocationActionPerformed
         // TODO add your handling code here:
-        String id = jTextField13.getText();
-        String name = jTextField14.getText();
-        String city = jTextField15.getText();
-        String country = jTextField16.getText();
-        double latitude = Double.parseDouble(jTextField17.getText());
-        double longitude = Double.parseDouble(jTextField18.getText());
+        String idStr = jTextField13.getText();
+        String nameStr = jTextField14.getText();
+        String cityStr = jTextField15.getText();
+        String countryStr = jTextField16.getText();
+        String latitudeStr = jTextField17.getText();
+        String longitudeStr = jTextField18.getText();
 
-        this.locations.add(new Location(id, name, city, country, latitude, longitude));
+        List<String> errors = FormValidator.validateLocation(idStr, nameStr, countryStr, latitudeStr, longitudeStr);
 
-        this.jComboBox2.addItem(id);
-        this.jComboBox3.addItem(id);
-        this.jComboBox4.addItem(id);
-    }//GEN-LAST:event_jButton10ActionPerformed
+        if (!errors.isEmpty()) {
+            JOptionPane.showMessageDialog(this, String.join("\n", errors), "Validation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double latitude = Double.parseDouble(latitudeStr);
+        double longitude = Double.parseDouble(longitudeStr);
+        
+        Response response = this.locationController.registerLocation(idStr, nameStr, countryStr, cityStr, latitude, longitude);
+
+        JOptionPane.showMessageDialog(this, response.getMessage(), "Create Location", JOptionPane.INFORMATION_MESSAGE);
+
+        jTextField13.setText("");
+        jTextField14.setText("");
+        jTextField15.setText("");
+        jTextField16.setText("");
+        jTextField17.setText("");
+        jTextField18.setText("");
+        
+        this.jComboBox2.addItem(idStr);
+        this.jComboBox3.addItem(idStr);
+        this.jComboBox4.addItem(idStr);
+    }//GEN-LAST:event_jButtonLocationActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
@@ -1741,7 +1785,6 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JComboBox<String> MONTH5;
     private javax.swing.JRadioButton administrator;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
@@ -1751,7 +1794,8 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonLocation;
+    private javax.swing.JButton jButtonPlane;
     private javax.swing.JButton jButtonRegisterPassenger;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -1868,17 +1912,15 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JComboBox<String> userSelect;
     // End of variables declaration//GEN-END:variables
 
-    
     LocationController locationController;
     PlaneController planeController;
     PassengerController passengerController;
     FlightController flightController;
-    
-    
-    public AirportFrame(LocationController locationController, 
-                        PlaneController planeController,
-                        PassengerController passengerController,
-                        FlightController flightController) {
+
+    public AirportFrame(LocationController locationController,
+            PlaneController planeController,
+            PassengerController passengerController,
+            FlightController flightController) {
         initComponents();
 
         this.passengers = new ArrayList<>();
@@ -1894,35 +1936,31 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         this.generateHours();
         this.generateMinutes();
         this.blockPanels();
-        
+
         this.locationController = locationController;
         this.planeController = planeController;
         this.passengerController = passengerController;
         this.flightController = flightController;
-        
+
     }
-    
+
     @Override
     public void update(Object source) {
         if (source instanceof PlaneRepository) {
             updatePlanesTable();
         } else if (source instanceof LocationRepository) {
             updateLocationsTable();
-        } 
-        else if (source instanceof PassengerRepository) {
+        } else if (source instanceof PassengerRepository) {
             updatePassengersTable();
-        } 
-        else if (source instanceof FlightRepository) {
+        } else if (source instanceof FlightRepository) {
             updateFlightsTable();
-        } 
+        }
     }
 
-    private void updatePlanesTable()
-    {
+    private void updatePlanesTable() {
         Response response = planeController.getAllPlanes();
 
-        if(response.getStatus() == Status.OK)
-        {
+        if (response.getStatus() == Status.OK) {
             List<Plane> planeList = (List<Plane>) response.getObject();
             ArrayList<Plane> planeArrayList = new ArrayList<>(planeList);
 
@@ -1930,25 +1968,22 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
             model.setRowCount(0);
 
-            for(Plane p : planeArrayList)
-            {
-               model.addRow(new Object[]{
-                   p.getId(),
-                   p.getBrand(),
-                   p.getModel(),
-                   p.getMaxCapacity(),
-                   p.getAirline()
-               });
+            for (Plane p : planeArrayList) {
+                model.addRow(new Object[]{
+                    p.getId(),
+                    p.getBrand(),
+                    p.getModel(),
+                    p.getMaxCapacity(),
+                    p.getAirline()
+                });
             }
         }
     }
-    
-    private void updateLocationsTable()
-    {
+
+    private void updateLocationsTable() {
         Response response = locationController.getAllLocations();
 
-        if(response.getStatus() == Status.OK)
-        {
+        if (response.getStatus() == Status.OK) {
             List<Location> locationList = (List<Location>) response.getObject();
             ArrayList<Location> locationArrayList = new ArrayList<>(locationList);
 
@@ -1956,25 +1991,22 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
             model.setRowCount(0);
 
-            for(Location l : locationArrayList)
-            {
-               model.addRow(new Object[]{
-                   l.getAirportId(),
-                   l.getAirportName(),
-                   l.getAirportCity(),
-                   l.getAirportCountry()
-                  
-               });
+            for (Location l : locationArrayList) {
+                model.addRow(new Object[]{
+                    l.getAirportId(),
+                    l.getAirportName(),
+                    l.getAirportCity(),
+                    l.getAirportCountry()
+
+                });
             }
         }
     }
-    
-    private void updatePassengersTable()
-    {
+
+    private void updatePassengersTable() {
         Response response = passengerController.getAllPassengers();
 
-        if(response.getStatus() == Status.OK)
-        {
+        if (response.getStatus() == Status.OK) {
             List<Passenger> passengersList = (List<Passenger>) response.getObject();
             ArrayList<Passenger> passengerArrayList = new ArrayList<>(passengersList);
 
@@ -1982,26 +2014,25 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
             model.setRowCount(0);
 
-            for(Passenger p : passengerArrayList)
-            {
-               model.addRow(new Object[]{
-                   p.getId(),
-                   p.getFullname(),
-                   p.getBirthDate(),
-                   p.calculateAge(),
-                   p.generateFullPhone(),
-                   p.getCountry()
-               });
+            for (Passenger p : passengerArrayList) {
+                model.addRow(new Object[]{
+                    p.getId(),
+                    p.getFullname(),
+                    p.getBirthDate(),
+                    p.calculateAge(),
+                    p.generateFullPhone(),
+                    p.getCountry()
+                });
             }
+            
+            
         }
     }
-    
-    private void updateFlightsTable()
-    {
+
+    private void updateFlightsTable() {
         Response response = flightController.getAllFlights();
 
-        if(response.getStatus() == Status.OK)
-        {
+        if (response.getStatus() == Status.OK) {
             List<Flight> flightsList = (List<Flight>) response.getObject();
             ArrayList<Flight> flighstArrayList = new ArrayList<>(flightsList);
 
@@ -2009,26 +2040,24 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
             model.setRowCount(0);
 
-            for(Flight f : flighstArrayList)
-            {
-               model.addRow(new Object[]{
-                   f.getId(),
-                   safeId(f.getDepartureLocation()),
-                   safeId(f.getArrivalLocation()),
-                   safeId(f.getScaleLocation()),
-                   f.getDepartureDate(),
-                   f.calculateArrivalDate(),
-                   f.getPlane().getId(),
-                   f.getNumPassengers()
-                  
-               });
+            for (Flight f : flighstArrayList) {
+                model.addRow(new Object[]{
+                    f.getId(),
+                    safeId(f.getDepartureLocation()),
+                    safeId(f.getArrivalLocation()),
+                    safeId(f.getScaleLocation()),
+                    f.getDepartureDate(),
+                    f.calculateArrivalDate(),
+                    f.getPlane().getId(),
+                    f.getNumPassengers()
+
+                });
             }
         }
     }
-    
+
     private String safeId(Location loc) {
         return (loc != null) ? loc.getAirportId() : "N/A";
     }
-    
-    
+
 }

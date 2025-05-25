@@ -1,6 +1,9 @@
 package core.models;
 
+import core.validator.Validator;
+
 public class Location {
+
     private final String airportId;
     private final String airportName;
     private final String airportCountry;
@@ -8,18 +11,20 @@ public class Location {
     private final double airportLatitude;
     private final double airportLongitude;
 
-    public Location(String airportId, 
-                    String airportName, 
-                    String airportCountry, 
-                    String airportCity, 
-                    double airportLatitude, 
-                    double airportLongitude) {
-        if (airportId == null || airportId.isEmpty()) throw new IllegalArgumentException("Invalid ID");
-        if (airportName == null || airportName.isEmpty()) throw new IllegalArgumentException("Invalid name");
-        if (airportCountry == null || airportCountry.isEmpty()) throw new IllegalArgumentException("Invalid country");
-        if (airportCity == null || airportCity.isEmpty()) throw new IllegalArgumentException("Invalid country");
-        if (airportLatitude < -90 || airportLatitude > 90) throw new IllegalArgumentException("Invalid latitude");
-        if (airportLongitude < -180 || airportLongitude > 180) throw new IllegalArgumentException("Invalid longitude");
+    public Location(String airportId,
+            String airportName,
+            String airportCountry,
+            String airportCity,
+            double airportLatitude,
+            double airportLongitude) {
+        
+        if (!Validator.isValidCoordinates(airportLatitude, airportLongitude)) {
+            throw new IllegalArgumentException("Invalid Coordinates");
+        }
+        
+        if(!Validator.isValidAirportIdFormat(airportId)){
+            throw new IllegalArgumentException("Invalid Airport ID");
+        }
 
         this.airportId = airportId;
         this.airportName = airportName;
@@ -52,6 +57,5 @@ public class Location {
     public double getLongitude() {
         return airportLongitude;
     }
-    
-    
+
 }
