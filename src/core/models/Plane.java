@@ -62,4 +62,8 @@ public class Plane {
         return flights.size();
     }
     
+    @Override
+    public String toString(){
+        return this.id;
+    }
 }
