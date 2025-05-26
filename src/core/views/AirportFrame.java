@@ -1740,9 +1740,13 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private void userSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSelectActionPerformed
         try {
             String id = userSelect.getSelectedItem().toString();
+            id = String.valueOf(id).split("-")[1];
+       
             if (!id.equals(userSelect.getItemAt(0))) {
                 jTextField20.setText(id);
                 jTextField28.setText(id);
+                jTextField22.setText(fullName[0]);
+                jTextField23.setText(fullName[1]);
             } else {
                 jTextField20.setText("");
                 jTextField28.setText("");
@@ -1967,6 +1971,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
             DefaultTableModel model = (DefaultTableModel) jTablePlanes.getModel();
 
             model.setRowCount(0);
+            
 
             for (Plane p : planeArrayList) {
                 model.addRow(new Object[]{
@@ -2013,6 +2018,8 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
             DefaultTableModel model = (DefaultTableModel) jTablePassenger.getModel();
 
             model.setRowCount(0);
+            
+            userSelect.removeAllItems();
 
             for (Passenger p : passengerArrayList) {
                 model.addRow(new Object[]{
@@ -2023,6 +2030,9 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                     p.generateFullPhone(),
                     p.getCountry()
                 });
+                
+                userSelect.addItem(p.toString());
+                System.out.println(p.toString());
             }
             
             

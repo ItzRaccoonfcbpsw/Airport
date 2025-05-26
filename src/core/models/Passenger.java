@@ -121,7 +121,8 @@ public class Passenger {
     
     @Override
     public String toString() {
-        return this.getFullname();
+        //return String.valueOf(this.getId());
+        return this.getFullname()+"-"+String.valueOf(this.getId());
     }
     
 }
