@@ -10,7 +10,6 @@ import core.repositories.ILocationRepository;
 import core.repositories.LocationRepository;
 import core.repositories.IPassengerRepository;
 import core.repositories.IPlaneRepository;
-import core.repositories.NuevoFlightRepository;
 import core.repositories.PassengerRepository;
 import core.repositories.PlaneRepository;
 import core.views.AirportFrame;
@@ -32,9 +31,9 @@ public class Main {
         FlightController flightController = new FlightController(flightRepo);
         
         
-        IFlightRepository nuevoFlightRepo = new NuevoFlightRepository();
         
-        flightController = new FlightController(nuevoFlightRepo);
+        
+        flightController = new FlightController(flightRepo);
         
          AirportFrame ventana = new AirportFrame(locationController, planeController, passengerController, flightController);
          
