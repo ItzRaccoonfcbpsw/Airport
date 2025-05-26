@@ -59,5 +59,23 @@ public class PassengerRepository implements IPassengerRepository, Subject {
             observer.update(this);
         }
     }
+    
+    @Override
+    public void deleteById(long id) {
+        passengers.removeIf(p -> p.getId() == id);
+        notifyObservers();
+    }
+
+    @Override
+    public boolean update(Passenger updated) {
+        for (int i = 0; i < passengers.size(); i++) {
+            if (passengers.get(i).getId() == updated.getId()) {
+                passengers.set(i, updated);
+                notifyObservers();
+                return true;
+            }
+        }
+        return false; // Not found
+    }
 }
 

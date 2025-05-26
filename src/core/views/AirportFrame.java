@@ -218,7 +218,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jTextField27 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonUpdatePassenger = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jTextField28 = new javax.swing.JTextField();
         jLabel44 = new javax.swing.JLabel();
@@ -853,11 +853,11 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
         jTextField27.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdatePassenger.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jButtonUpdatePassenger.setText("Update");
+        jButtonUpdatePassenger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonUpdatePassengerActionPerformed(evt);
             }
         });
 
@@ -906,7 +906,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                                 .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(507, 507, 507)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonUpdatePassenger)))
                 .addContainerGap(555, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -942,7 +942,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel43)
                     .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonUpdatePassenger)
                 .addGap(113, 113, 113))
         );
 
@@ -1490,9 +1490,8 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonRegisterPassengerActionPerformed
 
     private void jButtonPlaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaneActionPerformed
@@ -1516,7 +1515,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         JOptionPane.showMessageDialog(this, response.getMessage(), "Create Plane", JOptionPane.INFORMATION_MESSAGE);
 
         this.jComboBox1.addItem(idStr);
-        
+
         jTextField8.setText("");
         jTextField9.setText("");
         jTextField10.setText("");
@@ -1542,7 +1541,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
 
         double latitude = Double.parseDouble(latitudeStr);
         double longitude = Double.parseDouble(longitudeStr);
-        
+
         Response response = this.locationController.registerLocation(idStr, nameStr, countryStr, cityStr, latitude, longitude);
 
         JOptionPane.showMessageDialog(this, response.getMessage(), "Create Location", JOptionPane.INFORMATION_MESSAGE);
@@ -1553,7 +1552,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         jTextField16.setText("");
         jTextField17.setText("");
         jTextField18.setText("");
-        
+
         this.jComboBox2.addItem(idStr);
         this.jComboBox3.addItem(idStr);
         this.jComboBox4.addItem(idStr);
@@ -1609,34 +1608,45 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         this.jComboBox5.addItem(id);
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(jTextField20.getText());
+    private void jButtonUpdatePassengerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdatePassengerActionPerformed
+        String idStr = jTextField20.getText();
         String firstname = jTextField22.getText();
         String lastname = jTextField23.getText();
-        int year = Integer.parseInt(jTextField24.getText());
-        int month = Integer.parseInt(MONTH.getItemAt(MONTH5.getSelectedIndex()));
-        int day = Integer.parseInt(DAY.getItemAt(DAY5.getSelectedIndex()));
-        int phoneCode = Integer.parseInt(jTextField26.getText());
-        long phone = Long.parseLong(jTextField25.getText());
+        String yearStr = jTextField24.getText();
+        String monthStr = MONTH.getItemAt(MONTH5.getSelectedIndex());
+        String dayStr = DAY.getItemAt(DAY5.getSelectedIndex());
+        String phoneCodeStr = jTextField26.getText();
+        String phoneStr = jTextField25.getText();
         String country = jTextField27.getText();
+
+        List<String> errors = FormValidator.validatePassenger(idStr, firstname, lastname,
+                country, phoneCodeStr, phoneStr,
+                yearStr, monthStr, dayStr);
+
+        if (!errors.isEmpty()) {
+            JOptionPane.showMessageDialog(this, String.join("\n", errors), "Validation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        long id = Long.parseLong(idStr);
+        int phoneCode = Integer.parseInt(phoneCodeStr);
+        long phone = Long.parseLong(phoneStr);
+        int year = Integer.parseInt(yearStr);
+        int month = Integer.parseInt(monthStr);
+        int day = Integer.parseInt(dayStr);
 
         LocalDate birthDate = LocalDate.of(year, month, day);
 
-        Passenger passenger = null;
-        for (Passenger p : this.passengers) {
-            if (p.getId() == id) {
-                passenger = p;
-            }
-        }
+        Passenger passenger = new Passenger(id, firstname, lastname, birthDate, phoneCode, phone, country);
 
-        passenger.setFirstname(firstname);
-        passenger.setLastname(lastname);
-        passenger.setBirthDate(birthDate);
-        passenger.setCountryPhoneCode(phoneCode);
-        passenger.setPhone(phone);
-        passenger.setCountry(country);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Response response = this.passengerController.updatePassenger(passenger);
+
+        if (response.getStatus() != Status.OK) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Create Passenger", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Create Passenger", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonUpdatePassengerActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
@@ -1741,12 +1751,30 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
         try {
             String id = userSelect.getSelectedItem().toString();
             id = String.valueOf(id).split("-")[1];
-       
             if (!id.equals(userSelect.getItemAt(0))) {
-                jTextField20.setText(id);
-                jTextField28.setText(id);
-                jTextField22.setText(fullName[0]);
-                jTextField23.setText(fullName[1]);
+
+                Response response = this.passengerController.getPassengerById(Long.parseLong(id));
+
+                if (response.getStatus() != Status.OK) {
+                    JOptionPane.showMessageDialog(this, response.getMessage(), "Passenger not found", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Passenger passenger = (Passenger) response.getObject();
+
+                    jTextField20.setText(id);
+                    jTextField28.setText(id);
+
+                    jTextField22.setText(passenger.getFirstname());
+                    jTextField23.setText(passenger.getLastname());
+                    jTextField24.setText(String.valueOf(passenger.getBirthDate().getYear()));
+
+                    MONTH5.setSelectedIndex(passenger.getBirthDate().getMonthValue());
+                    DAY5.setSelectedIndex(passenger.getBirthDate().getDayOfMonth());
+
+                    jTextField25.setText(String.valueOf(passenger.getPhone()));
+                    jTextField26.setText(String.valueOf(passenger.getCountryPhoneCode()));
+                    jTextField27.setText(passenger.getCountry());
+                }
+
             } else {
                 jTextField20.setText("");
                 jTextField28.setText("");
@@ -1788,7 +1816,6 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JComboBox<String> MONTH4;
     private javax.swing.JComboBox<String> MONTH5;
     private javax.swing.JRadioButton administrator;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
@@ -1801,6 +1828,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton jButtonLocation;
     private javax.swing.JButton jButtonPlane;
     private javax.swing.JButton jButtonRegisterPassenger;
+    private javax.swing.JButton jButtonUpdatePassenger;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -1971,7 +1999,6 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
             DefaultTableModel model = (DefaultTableModel) jTablePlanes.getModel();
 
             model.setRowCount(0);
-            
 
             for (Plane p : planeArrayList) {
                 model.addRow(new Object[]{
@@ -2018,7 +2045,7 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
             DefaultTableModel model = (DefaultTableModel) jTablePassenger.getModel();
 
             model.setRowCount(0);
-            
+
             userSelect.removeAllItems();
 
             for (Passenger p : passengerArrayList) {
@@ -2030,12 +2057,11 @@ public class AirportFrame extends javax.swing.JFrame implements Observer {
                     p.generateFullPhone(),
                     p.getCountry()
                 });
-                
+
                 userSelect.addItem(p.toString());
                 System.out.println(p.toString());
             }
-            
-            
+
         }
     }
 

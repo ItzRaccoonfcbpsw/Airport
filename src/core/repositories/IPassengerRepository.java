@@ -12,4 +12,7 @@ public interface IPassengerRepository {
     boolean existsById(long id);
     Passenger findById(long id);
     List<Passenger> findAllSorted();
+    
+    void deleteById(long id);
+    boolean update(Passenger updated);
 }

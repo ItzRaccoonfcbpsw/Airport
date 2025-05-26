@@ -42,6 +42,16 @@ public class PassengerController {
         }
     }
     
+    public Response getPassengerById(long id)
+    {
+       
+       Passenger passenger = repository.findById(id);
+       
+       if(passenger == null) return new Response("Error retrieving passenger: " , Status.INTERNAL_SERVER_ERROR);
+           
+       return new Response("Passengers retrieved successfully", Status.OK, passenger);
+    }
+    
     public Response getAllPassengers() {
     try {
         List<Passenger> passengers = repository.findAllSorted();
@@ -51,4 +61,25 @@ public class PassengerController {
     }
     }
 
+    public Response deletePassengerById(long id) {
+        if (!repository.existsById(id)) {
+            return new Response("Passenger not found.", Status.NOT_FOUND);
+        }
+
+        repository.deleteById(id);
+        return new Response("Passenger deleted successfully.", Status.OK);
+    }
+
+    public Response updatePassenger(Passenger updatedPassenger) {
+    if (!repository.existsById(updatedPassenger.getId())) {
+        return new Response("Passenger not found.", Status.NOT_FOUND);
+    }
+
+    boolean success = repository.update(updatedPassenger);
+        if (success) {
+            return new Response("Passenger updated successfully.", Status.OK, updatedPassenger);
+        } else {
+            return new Response("Error updating passenger.", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
