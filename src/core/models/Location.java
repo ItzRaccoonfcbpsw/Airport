@@ -1,27 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package core.models;
 
-/**
- *
- * @author edangulo
- */
-public class Location {
-    
-    private final String airportId;
-    private String airportName;
-    private String airportCity;
-    private String airportCountry;
-    private double airportLatitude;
-    private double airportLongitude;
+import core.validator.Validator;
 
-    public Location(String airportId, String airportName, String airportCity, String airportCountry, double airportLatitude, double airportLongitude) {
+public class Location {
+
+    private final String airportId;
+    private final String airportName;
+    private final String airportCountry;
+    private final String airportCity;
+    private final double airportLatitude;
+    private final double airportLongitude;
+
+    public Location(String airportId,
+            String airportName,
+            String airportCountry,
+            String airportCity,
+            double airportLatitude,
+            double airportLongitude) {
+        
+        if (!Validator.isValidCoordinates(airportLatitude, airportLongitude)) {
+            throw new IllegalArgumentException("Invalid Coordinates");
+        }
+        
+        if(!Validator.isValidAirportIdFormat(airportId)){
+            throw new IllegalArgumentException("Invalid Airport ID");
+        }
+
         this.airportId = airportId;
         this.airportName = airportName;
-        this.airportCity = airportCity;
         this.airportCountry = airportCountry;
+        this.airportCity = airportCity;
         this.airportLatitude = airportLatitude;
         this.airportLongitude = airportLongitude;
     }
@@ -34,20 +42,24 @@ public class Location {
         return airportName;
     }
 
-    public String getAirportCity() {
-        return airportCity;
-    }
-
     public String getAirportCountry() {
         return airportCountry;
     }
 
-    public double getAirportLatitude() {
+    public String getAirportCity() {
+        return airportCity;
+    }
+
+    public double getLatitude() {
         return airportLatitude;
     }
 
-    public double getAirportLongitude() {
+    public double getLongitude() {
         return airportLongitude;
     }
-    
+
+    @Override
+    public String toString(){
+        return this.airportId;
+    }
 }
